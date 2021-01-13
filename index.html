@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nomimate favourite movies with Shopify">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="The Shoppies Movie Nominations">
+    <meta property="og:description" content="Nominate favourite movies with Shopify">
+    <title>The Shoppies Movie Nominations</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+    <header>
+        <h1>The Shoppies</h1>
+    </header>
+    <main>
+        <form>
+            <label for="movie">Movie title</label>
+            <input type="text" name="movie" id="movie" placeholder="Movie title (year - optional)" autocomplete="off">
+        </form>
+        <section class="results"></section>
+        <section class="suggestions"></section>
+        <section class="nominations"></section>
+        <button class="showNominations">Nominations</button>
+    </main>
+    <footer>
+        <p>Created by Martin Nguyen</p>
+    </footer>
+    <script type="module" src="./script/app.js"></script>
+</body>
+</html>
