@@ -252,3 +252,221 @@ html {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+h1 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+
+form {
+  font-size: 2rem;
+}
+
+button {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 2rem;
+}
+
+form.searchField {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+form.searchField input[type="text"] {
+  width: 500px;
+}
+
+form.searchField button {
+  width: 150px;
+}
+
+form.searchField .suggestions {
+  position: absolute;
+  top: 30px;
+  left: calc(50% - 410px);
+  padding: 10px;
+  background-color: whitesmoke;
+  width: 500px;
+}
+
+form.searchField .suggestions ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+form.searchField .suggestions li {
+  list-style: none;
+  margin: 5px 0;
+}
+
+form.searchField .suggestions a {
+  text-decoration: none;
+  color: #1b2456;
+}
+
+form.searchField .suggestions.hidden {
+  padding: 0;
+}
+
+.searchResults {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+}
+
+.movieContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+  margin: 10px;
+}
+
+.movieContainer figure {
+  width: 200px;
+  height: 350px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.movieContainer figure img {
+  width: 100%;
+}
+
+.movieContainer .movieDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  gap: 10px;
+}
+
+.movieContainer .movieDetails h3 {
+  width: 200px;
+  text-align: center;
+}
+
+.nominations {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+}
+
+.nominationContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+  margin: 10px;
+}
+
+.nominationContainer figure {
+  width: 200px;
+  height: 350px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.nominationContainer figure img {
+  width: 100%;
+}
+
+.nominationContainer .movieDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  gap: 10px;
+}
+
+.nominationContainer .movieDetails h3 {
+  width: 200px;
+  text-align: center;
+}

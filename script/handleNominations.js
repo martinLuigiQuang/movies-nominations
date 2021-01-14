@@ -1,11 +1,13 @@
 const handleNominations = (function() {
     const nominationSection = document.getElementsByClassName('nominations')[0];
+    let showNominations = false;
     let nominations = [];
 
     function getNominations(event) {
         event.target.setAttribute('disabled', 'true');
         event.target.classList.add('disabled');
-        const [poster, title, year] = event.target.parentNode.children;
+        const [poster] = event.target.parentNode.parentNode.children;
+        const [title, year] = event.target.parentNode.children;
         const movieNomination = {
             'Poster': poster.children[0].src,
             'Title': title.innerText,
@@ -40,18 +42,20 @@ const handleNominations = (function() {
         };
     };
 
-    function createIndividualDisplay(movie, index) {
+    function createIndividualDisplay(movie) {
         return `
-            <div class="nominationContainer" id="${index}">
+            <div class="nominationContainer">
                 <figure class="posterContainer">
                     <img 
                         src="${movie.Poster}" 
                         alt="poster for ${movie.Title} ${movie.Year}"
                     />
                 </figure> <!-- closing posterContainer -->
-                <h3>${movie.Title}</h3>
-                <p>${movie.Year}</p>
-                <button class="removeButton">Remove</button>
+                <div class="movieDetails">
+                    <h3>${movie.Title}</h3>
+                    <p>${movie.Year}</p>
+                    <button class="removeButton">Remove</button>
+                </div> <!-- closing moviesDetails -->
             </div> <!-- closing nominationContainer -->
         `;
     };
@@ -73,31 +77,47 @@ const handleNominations = (function() {
     };
 
     function removeNomination(event) {
-        const arrayIndex = event.target.parentNode.id;
-        const [removedPoster, removedTitle, removedYear] = event.target.parentNode.children;
-        nominations.splice(arrayIndex, 1);
-        if (nominations.length) {
-            buildNominationsDisplay();
-        } else {
-            nominationSection.innerHTML = '';
-        };
-        const movies = [...document.getElementsByClassName('movieContainer')];
-        movies.forEach( movie => {
-            const [poster, title, year, button] = movie.children;
-            if (poster.children[0].src === removedPoster.children[0].src && title.innerText === removedTitle.innerText && year.innerText === removedYear.innerText)  {
-                button.removeAttribute('disabled');
+        const [removedPoster] = event.target.parentNode.parentNode.children;
+        const [removedTitle, removedYear] = event.target.parentNode.children;
+        let arrayIndex;
+        nominations.forEach( (movie, index) => {
+            if (removedPoster.children[0].src === movie.Poster && removedTitle.innerText === movie.Title && removedYear.innerText === movie.Year) {
+                arrayIndex = index;
+                return;
             };
         });
+        if (arrayIndex !== undefined || arrayIndex !== null) {
+            nominations.splice(arrayIndex, 1);
+            if (nominations.length) {
+                buildNominationsDisplay();
+            } else {
+                nominationSection.innerHTML = '';
+            };
+            const movies = [...document.getElementsByClassName('movieContainer')];
+            movies.forEach( movie => {
+                const [poster] = movie.children;
+                const [title, year, button] = movie.children[1].children;
+                if (poster.children[0].src === removedPoster.children[0].src && title.innerText === removedTitle.innerText && year.innerText === removedYear.innerText)  {
+                    button.removeAttribute('disabled');
+                };
+            });
+        };
     };
 
     function buildNominationsDisplay() {
-        const nominationsDisplay = createNominationsDisplay();
-        nominationSection.innerHTML = '';
-        nominationSection.appendChild(nominationsDisplay.content);
-        const removeButtons = [...nominationSection.getElementsByClassName('removeButton')];
-        removeButtons.forEach( button => {
-            button.onclick = removeNomination;
-        });
+        if (!showNominations) {
+            const nominationsDisplay = createNominationsDisplay();
+            nominationSection.innerHTML = '';
+            nominationSection.appendChild(nominationsDisplay.content);
+            const removeButtons = [...nominationSection.getElementsByClassName('removeButton')];
+            removeButtons.forEach( button => {
+                button.onclick = removeNomination;
+            });
+            showNominations = !showNominations;
+        } else {
+            nominationSection.innerHTML = '';
+            showNominations = !showNominations;
+        }
     };
     
     return {

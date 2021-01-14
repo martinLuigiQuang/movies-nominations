@@ -15,14 +15,15 @@
         <h1>The Shoppies</h1>
     </header>
     <main>
-        <form>
-            <label for="movie">Movie title</label>
+        <form class="searchField">
+            <label for="movie" class="srOnly">Movie title</label>
             <input type="text" name="movie" id="movie" placeholder="Movie title (year - optional)" autocomplete="off">
+            <button class="searchButton">Search</button>
+            <button class="showNominations">Nominations</button>
+            <section class="suggestions hidden"></section>
         </form>
-        <section class="results"></section>
-        <section class="suggestions"></section>
+        <section class="searchResults"></section>
         <section class="nominations"></section>
-        <button class="showNominations">Nominations</button>
     </main>
     <footer>
         <p>Created by Martin Nguyen</p>

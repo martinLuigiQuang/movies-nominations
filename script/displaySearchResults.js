@@ -1,8 +1,10 @@
 import handleNominations from './handleNominations.js';
 
 const displaySearchResults = (function() {
-    const searchResultsSection = document.getElementsByClassName('results')[0];
+    const searchResultsSection = document.getElementsByClassName('searchResults')[0];
     const showNominationsButton = document.getElementsByClassName('showNominations')[0];
+    const suggestions = document.getElementsByClassName('suggestions')[0];
+
     function createIndividualMovieContainer(movie) {
         const isDisabled = handleNominations.disableNominateButton(movie);
         return `
@@ -19,13 +21,15 @@ const displaySearchResults = (function() {
                         alt="poster for ${movie.Title} ${movie.Year}"
                     />
                 </figure> <!-- clsoing posterContainer -->
-                <h3>${movie.Title}</h3>
-                <p>(${movie.Year})</p>
-                ${
-                    isDisabled
-                    ?   `<button class="nominateButton disabled" disabled="true">nominate</button>`
-                    :   `<button class="nominateButton">nominate</button>`
-                }
+                <div class="movieDetails">
+                    <h3>${movie.Title}</h3>
+                    <p>(${movie.Year})</p>
+                    ${
+                        isDisabled
+                        ?   `<button class="nominateButton disabled" disabled="true">nominate</button>`
+                        :   `<button class="nominateButton">nominate</button>`
+                    }
+                </div> <!-- closing movieDetail -->
             </div> <!-- closing movieContainer -->
         `;
     };
@@ -46,6 +50,8 @@ const displaySearchResults = (function() {
     };
 
     function buildSearchResultsDisplay(movies) {
+        suggestions.innerHTML = '';
+        suggestions.classList.add('hidden');
         if (Array.isArray(movies)) {
             const searchResultsDisplay = createSearchResultsDisplay(movies);
             searchResultsSection.innerHTML = '';
