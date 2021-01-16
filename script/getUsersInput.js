@@ -1,12 +1,10 @@
 import apiCall from './apiCall.js';
-import handleNominations from './handleNominations.js';
 
 const getUsersInput = (function() {
     const form = document.getElementsByClassName('searchField')[0];
     const inputField = document.getElementById('movie');
     const searchButton = form.getElementsByClassName('searchButton')[0];
     const suggestions = document.getElementsByClassName('suggestions')[0];
-    const showNominationsButton = document.getElementsByClassName('showNominations')[0];
     
     /**
      * function to pass value of input field to make api calls
@@ -40,9 +38,9 @@ const getUsersInput = (function() {
     };
 
     function init() {
-        showNominationsButton.onclick = handleNominations.buildNominationsDisplay;
         searchButton.onclick = handleSearchButton;
         getInput();
+        apiCall.omdb('harry', true);
     };
 
     return {

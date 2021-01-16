@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    background-color: crimson;
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    background-color: goldenrod;
+    color: whitesmoke;
+    padding: 10px;
+    z-index: 1;
+}

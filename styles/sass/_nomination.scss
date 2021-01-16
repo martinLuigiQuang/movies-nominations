@@ -1,17 +1,44 @@
+.movieNominations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: goldenrod;
+}
+
 .nominations {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    background-color: goldenrod;
+    &.hidden {
+        height: 0;
+        .nominationsContainer, p {
+            display: none;
+        }
+    }
+    p {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.nominationsContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: flex-end;
+    align-content: center;
 }
 
-.nominationContainer {
+.movieContainer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    height: auto;
     margin: 10px;
     figure {
         width: 200px;
@@ -33,5 +60,46 @@
             width: 200px;
             text-align: center;
         }
+    }
+}
+
+.collapseNominations {
+    font-size: 3rem;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    i {
+        animation: animateArrow 0.8s linear infinite;
+    }
+}
+
+@keyframes animateArrow {
+    0% {
+        transform: translateY(-2px);
+    }
+    100%{
+        transform: translateY(2px);
+        color: crimson;
+    }
+}
+
+.popUp {
+    width: 300px;
+    height: 100px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 2;
+    top: calc(50% - 50px);
+    left: calc(50% - 150px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s, opacity 0.4s, z-index 0.4s;
+    &.hidden {
+        transform: scale(0.8);
+        opacity: 0;
+        z-index: -1;
     }
 }

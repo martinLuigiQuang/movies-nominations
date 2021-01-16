@@ -8,7 +8,7 @@ const displaySearchSuggestions = (function() {
             ?   `<ul>
                     ${
                         movies.map( movie => {
-                            return `<li><a href="#">${handleLongTitle(movie.Title, 45)} (${movie.Year})</a></li>`
+                            return `<li><a href="#">${handleLongTitle(movie.Title, 45)}, ${movie.Year}</a></li>`
                         }).reduce( (acc, cur) => {
                             return acc + cur;
                         })  
@@ -48,7 +48,7 @@ const displaySearchSuggestions = (function() {
             inputField.value = '';
         } else {
             suggestions.innerHTML = '';
-        }
+        };
     };
 
     function buildSuggestionsList(movies, apiCall) {

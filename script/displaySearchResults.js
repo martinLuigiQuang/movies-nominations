@@ -2,7 +2,6 @@ import handleNominations from './handleNominations.js';
 
 const displaySearchResults = (function() {
     const searchResultsSection = document.getElementsByClassName('searchResults')[0];
-    const showNominationsButton = document.getElementsByClassName('showNominations')[0];
     const suggestions = document.getElementsByClassName('suggestions')[0];
 
     function createIndividualMovieContainer(movie) {
@@ -22,7 +21,7 @@ const displaySearchResults = (function() {
                     />
                 </figure> <!-- clsoing posterContainer -->
                 <div class="movieDetails">
-                    <h3>${movie.Title}</h3>
+                    <h3>${handleLongTitle(movie.Title, 45)}</h3>
                     <p>(${movie.Year})</p>
                     ${
                         isDisabled
@@ -61,7 +60,25 @@ const displaySearchResults = (function() {
                 button.onclick = handleNominations.getNominations;
             });
         };
-        showNominationsButton.onclick = handleNominations.buildNominationsDisplay;
+    };
+
+    function handleLongTitle(title, maxLength) {
+        if (title.length > maxLength) {
+            if (title.charAt(maxLength - 1) !== ' ') {
+                const omittedInfo = title.slice(maxLength, title.length);
+                let positionOfNextSpace = omittedInfo.search(' ');
+                if (positionOfNextSpace < 0) {
+                    const numOfCharsToEndOfString = title.length - maxLength;
+                    if (numOfCharsToEndOfString < 10) {
+                        positionOfNextSpace = numOfCharsToEndOfString;
+                    };
+                };
+                maxLength += positionOfNextSpace;
+            };
+            title = title.slice(0, maxLength);
+            title += ' ...';
+        };
+        return title;
     };
 
     return {

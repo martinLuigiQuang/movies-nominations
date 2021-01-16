@@ -24,7 +24,7 @@ const apiCall = (function() {
     function parseMovieYear(search) {
         const movieYearRegex = /\(([0-9]{4})\)/;
         const movieYear = movieYearRegex.exec(search);
-        search = search.replace(/\([0-9][0-9][0-9][0-9]\)/, '').trim();
+        search = search.replace(/, [0-9][0-9][0-9][0-9]/, '').trim();
         return [search, movieYear];
     };
 
@@ -36,10 +36,12 @@ const apiCall = (function() {
     async function omdb(search, isSubmitted) {
         let url = 'http://www.omdbapi.com/';
         const [movieTitle, movieYear] = parseMovieYear(search);
-        if (movieYear) {
+        if (movieYear && movieTitle) {
             url = url + `?s=${movieTitle}&y=${movieYear[1]}&type=movie&apikey=b1bd9324`;
-        } else {
-            url = url + `?s=${movieTitle}&type=movie&apikey=b1bd9324`
+        } else if (movieTitle) {
+            url = url + `?s=${movieTitle}&type=movie&apikey=b1bd9324`;
+        } else if (movieYear) {
+            url = url + `?s=${movieYear[1]}&y=${movieYear[1]}&type=movie&apikey=b1bd9324`;
         };
         try {
             const promise = await fetch(url);

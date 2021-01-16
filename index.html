@@ -8,22 +8,27 @@
     <meta property="og:title" content="The Shoppies Movie Nominations">
     <meta property="og:description" content="Nominate favourite movies with Shopify">
     <title>The Shoppies Movie Nominations</title>
+    <script src="https://kit.fontawesome.com/6ef8eb0028.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     <header>
-        <h1>The Shoppies</h1>
+        <h1>The Shoppies Academy Award</h1>
     </header>
     <main>
         <form class="searchField">
             <label for="movie" class="srOnly">Movie title</label>
             <input type="text" name="movie" id="movie" placeholder="Movie title (year - optional)" autocomplete="off">
             <button class="searchButton">Search</button>
-            <button class="showNominations">Nominations</button>
-            <section class="suggestions hidden"></section>
-        </form>
-        <section class="searchResults"></section>
-        <section class="nominations"></section>
+            <div class="suggestions hidden"></div> <!-- closing suggestions -->
+        </form> <!-- closing form.searchField -->
+        <section class="movieNominations">
+            <h2>Movie Nominations</h2>
+            <div class="nominations hidden"></div>
+            <button class="collapseNominations"><i class="fas fa-chevron-down"></i></button>
+        </section> <!-- closing nominations -->
+        <section class="searchResults"></section> <!-- closing searchResults -->
+        <div class="popUp hidden"></div> <!-- closing popUp -->
     </main>
     <footer>
         <p>Created by Martin Nguyen</p>
