@@ -1,9 +1,13 @@
 import handleNominations from './handleNominations.js';
+import handleLongTitles from './handleLongTitles.js';
 
 const displaySearchResults = (function() {
-    const searchResultsSection = document.getElementsByClassName('searchResults')[0];
-    const suggestions = document.getElementsByClassName('suggestions')[0];
-
+    const searchResultsSection = document.getElementsByClassName('searchResults')[0]; // the search results display section
+    const suggestions = document.getElementsByClassName('suggestions')[0]; // the dropdown autosuggestion menu
+    /**
+     * Create individual movie container for each movie
+     * @param {Object} movie The movie object from API response
+     */
     function createIndividualMovieContainer(movie) {
         return `
             <div class="movieContainer">
@@ -20,7 +24,7 @@ const displaySearchResults = (function() {
                     />
                 </figure> <!-- clsoing posterContainer -->
                 <div class="movieDetails">
-                    <h3>${handleLongTitle(movie.Title, 45)}</h3>
+                    <h3>${handleLongTitles(movie.Title, 45)}</h3>
                     <p>(${movie.Year})</p>
                     <button class="nominateButton" value="${movie.imdbID}">nominate</button>
                 </div> <!-- closing movieDetail -->
@@ -28,6 +32,10 @@ const displaySearchResults = (function() {
         `;
     };
 
+    /**
+     * Create the search results display section
+     * @param {Array} movies The movies array from API response 
+     */
     function createSearchResultsDisplay(movies) {
         const searchResultsDisplay = `
         ${
@@ -43,6 +51,12 @@ const displaySearchResults = (function() {
         return template;
     };
     
+    /**
+     * Bind the search results display section to a DOM element
+     * Attach event listeners to each of the nominate buttons
+     * Disable any nominate button that has a value that matches the ID of any of the nominated movies
+     * @param {Array} movies The movies array from API response 
+     */
     function buildSearchResultsDisplay(movies) {
         suggestions.innerHTML = '';
         suggestions.classList.add('hidden');
@@ -56,25 +70,6 @@ const displaySearchResults = (function() {
             });
             handleNominations.disableNominateButtons();
         };
-    };
-
-    function handleLongTitle(title, maxLength) {
-        if (title.length > maxLength) {
-            if (title.charAt(maxLength - 1) !== ' ') {
-                const omittedInfo = title.slice(maxLength, title.length);
-                let positionOfNextSpace = omittedInfo.search(' ');
-                if (positionOfNextSpace < 0) {
-                    const numOfCharsToEndOfString = title.length - maxLength;
-                    if (numOfCharsToEndOfString < 10) {
-                        positionOfNextSpace = numOfCharsToEndOfString;
-                    };
-                };
-                maxLength += positionOfNextSpace;
-            };
-            title = title.slice(0, maxLength);
-            title += ' ...';
-        };
-        return title;
     };
 
     return {
