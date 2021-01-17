@@ -18,8 +18,10 @@
     <main>
         <form class="searchField">
             <label for="movie" class="srOnly">Movie title</label>
-            <input type="text" name="movie" id="movie" placeholder="title, year (optional)" autocomplete="off">
-            <button class="searchButton">Search</button>
+            <div class="inputFieldContainer">
+                <input type="text" name="movie" id="movie" placeholder="title, year (optional)" autocomplete="off">
+                <button class="searchButton"><i class="fas fa-search"></i></button>
+            </div> <!-- closing inputFieldContainer -->
             <div class="suggestions hidden"></div> <!-- closing suggestions -->
         </form> <!-- closing form.searchField -->
         <section class="movieNominations">

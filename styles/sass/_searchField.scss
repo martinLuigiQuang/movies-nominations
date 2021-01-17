@@ -5,17 +5,21 @@ form.searchField {
     align-items: center;
     gap: 10px;
     position: relative;
-    input[type="text"] {
-        width: 500px;
-    }
-    button {
-        width: 150px;
+    .inputFieldContainer {
+        input[type="text"] {
+            width: 500px;
+            height: 30px;
+        }
+        button {
+            width: 30px;
+            height: 30px;
+        }
     }
     .suggestions {
         position: absolute;
         z-index: 3;
-        top: 60px;
-        left: calc(50% - 330px);
+        top: 65px;
+        left: calc(50% - 268px);
         padding: 10px;
         background-color: whitesmoke;
         width: 500px;

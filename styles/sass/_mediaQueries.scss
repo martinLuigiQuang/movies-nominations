@@ -1,0 +1,27 @@
+@media (max-width: 600px) {
+    form.searchField {
+        .inputFieldContainer {
+            input[type="text"] {
+                width: 400px;
+            }
+        }
+        .suggestions {
+            width: 400px;
+            left: calc(50% - 218px);
+        }
+    }
+}
+
+@media (max-width: 470px) {
+    form.searchField {
+        .inputFieldContainer {
+            input[type="text"] {
+                width: 245px;
+            }
+        }
+        .suggestions {
+            width: 245px;
+            left: calc(50% - 140px);
+        }
+    }
+}

@@ -312,6 +312,10 @@ header {
   background-color: crimson;
 }
 
+header h1 {
+  text-align: center;
+}
+
 main {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -346,19 +350,21 @@ form.searchField {
   position: relative;
 }
 
-form.searchField input[type="text"] {
+form.searchField .inputFieldContainer input[type="text"] {
   width: 500px;
+  height: 30px;
 }
 
-form.searchField button {
-  width: 150px;
+form.searchField .inputFieldContainer button {
+  width: 30px;
+  height: 30px;
 }
 
 form.searchField .suggestions {
   position: absolute;
   z-index: 3;
-  top: 60px;
-  left: calc(50% - 330px);
+  top: 65px;
+  left: calc(50% - 268px);
   padding: 10px;
   background-color: whitesmoke;
   width: 500px;
@@ -714,4 +720,24 @@ form.searchField .suggestions.hidden {
           transform: scale(0.8);
   opacity: 0;
   z-index: -1;
+}
+
+@media (max-width: 600px) {
+  form.searchField .inputFieldContainer input[type="text"] {
+    width: 400px;
+  }
+  form.searchField .suggestions {
+    width: 400px;
+    left: calc(50% - 218px);
+  }
+}
+
+@media (max-width: 470px) {
+  form.searchField .inputFieldContainer input[type="text"] {
+    width: 245px;
+  }
+  form.searchField .suggestions {
+    width: 245px;
+    left: calc(50% - 140px);
+  }
 }
