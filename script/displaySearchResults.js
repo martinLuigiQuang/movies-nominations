@@ -5,7 +5,6 @@ const displaySearchResults = (function() {
     const suggestions = document.getElementsByClassName('suggestions')[0];
 
     function createIndividualMovieContainer(movie) {
-        const isDisabled = handleNominations.disableNominateButton(movie);
         return `
             <div class="movieContainer">
                 <figure class="posterContainer">
@@ -23,11 +22,7 @@ const displaySearchResults = (function() {
                 <div class="movieDetails">
                     <h3>${handleLongTitle(movie.Title, 45)}</h3>
                     <p>(${movie.Year})</p>
-                    ${
-                        isDisabled
-                        ?   `<button class="nominateButton disabled" disabled="true">nominate</button>`
-                        :   `<button class="nominateButton">nominate</button>`
-                    }
+                    <button class="nominateButton" value="${movie.imdbID}">nominate</button>
                 </div> <!-- closing movieDetail -->
             </div> <!-- closing movieContainer -->
         `;
@@ -35,19 +30,19 @@ const displaySearchResults = (function() {
 
     function createSearchResultsDisplay(movies) {
         const searchResultsDisplay = `
-            ${
-                movies.map( movie => {
-                    return createIndividualMovieContainer(movie);
-                }).reduce( (acc, cur) => {
-                    return acc + cur;
-                })
-            }
+        ${
+            movies.map( movie => {
+                return createIndividualMovieContainer(movie);
+            }).reduce( (acc, cur) => {
+                return acc + cur;
+            })
+        }
         `;
         const template = document.createElement('template');
         template.innerHTML = searchResultsDisplay;
         return template;
     };
-
+    
     function buildSearchResultsDisplay(movies) {
         suggestions.innerHTML = '';
         suggestions.classList.add('hidden');
@@ -59,6 +54,7 @@ const displaySearchResults = (function() {
             nominateButtons.forEach( button => {
                 button.onclick = handleNominations.getNominations;
             });
+            handleNominations.disableNominateButtons();
         };
     };
 

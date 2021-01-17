@@ -1,4 +1,5 @@
 const displaySearchSuggestions = (function() {
+    let search = '';
     const inputField = document.getElementById('movie');
     const suggestions = document.getElementsByClassName('suggestions')[0];
 
@@ -41,14 +42,15 @@ const displaySearchSuggestions = (function() {
     };
 
     function handleSuggestionSelection(event, apiCall) {
-        const search = event.target.innerText;
+        search = event.target.innerText;
         if (search.trim()) {
             suggestions.innerHTML = '';
-            apiCall(search, true);
+            apiCall(search, true, 1, true);
             inputField.value = '';
         } else {
             suggestions.innerHTML = '';
         };
+        suggestions.classList.add('hidden');
     };
 
     function buildSuggestionsList(movies, apiCall) {

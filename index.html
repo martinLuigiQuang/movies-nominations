@@ -18,7 +18,7 @@
     <main>
         <form class="searchField">
             <label for="movie" class="srOnly">Movie title</label>
-            <input type="text" name="movie" id="movie" placeholder="Movie title (year - optional)" autocomplete="off">
+            <input type="text" name="movie" id="movie" placeholder="title, year (optional)" autocomplete="off">
             <button class="searchButton">Search</button>
             <div class="suggestions hidden"></div> <!-- closing suggestions -->
         </form> <!-- closing form.searchField -->
@@ -27,12 +27,20 @@
             <div class="nominations hidden"></div>
             <button class="collapseNominations"><i class="fas fa-chevron-down"></i></button>
         </section> <!-- closing nominations -->
-        <section class="searchResults"></section> <!-- closing searchResults -->
+        <section class="moviesSearchResults">
+            <div class="searchResults"></div> <!-- closing searchResults -->
+            <div class="buttonsContainer">
+                <button class="previousPage"><i class="fas fa-chevron-left"></i></button>
+                <button class="nextPage"><i class="fas fa-chevron-right"></i></button>
+            </div> <!-- closing buttonsContainer -->
+        </section> <!-- closing moviesSearchResults -->
         <div class="popUp hidden"></div> <!-- closing popUp -->
     </main>
     <footer>
         <p>Created by Martin Nguyen</p>
     </footer>
     <script type="module" src="./script/app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-database.js"></script>
 </body>
 </html>

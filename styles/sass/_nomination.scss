@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     background-color: goldenrod;
+    padding-top: 50px;
 }
 
 .nominations {
@@ -12,12 +13,19 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+    min-height: 500px;
     background-color: goldenrod;
+    transition: height 0.5s, min-height 0.5s;
     &.hidden {
         height: 0;
+        min-height: 0;
         .nominationsContainer, p {
             display: none;
         }
+    }
+    &.hidden ~ .collapseNominations {
+        transform: rotateZ(0);
+        margin-top: 0;
     }
     p {
         flex-grow: 1;
@@ -69,6 +77,9 @@
     height: 50px;
     background-color: transparent;
     border: none;
+    transform: rotateZ(180deg);
+    margin-top: 20px;
+    cursor: pointer;
     i {
         animation: animateArrow 0.8s linear infinite;
     }
@@ -80,7 +91,7 @@
     }
     100%{
         transform: translateY(2px);
-        color: crimson;
+        color: #DC143C;
     }
 }
 

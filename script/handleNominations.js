@@ -1,8 +1,20 @@
+import firebase from './firebase.js';
+
 const handleNominations = (function() {
+    const databaseReference = firebase.database().ref();
     const nominationSection = document.getElementsByClassName('nominations')[0];
+    const searchResultsSection = document.getElementsByClassName('searchResults')[0];
     const popUpMessageDiv = document.getElementsByClassName('popUp')[0];
+    const collapseNominationsButton = document.getElementsByClassName('collapseNominations')[0];
+    collapseNominationsButton.onclick = handleCollapseNominationsButton;
     let showNominations = false;
     let nominations = [];
+
+    databaseReference.on('value', data => {
+        const firebaseDataObj = data.val();
+        nominations = firebaseDataObj;
+        buildNominationsDisplay();
+    });
 
     function getNominations(event) {
         if (nominations.length < 5) {
@@ -13,9 +25,11 @@ const handleNominations = (function() {
             const movieNomination = {
                 'Poster': poster.children[0].src,
                 'Title': title.innerText,
-                'Year': parseMovieYear(year.innerText)
+                'Year': parseMovieYear(year.innerText),
+                'ID': event.target.value
             };
             nominations.push(movieNomination);
+            databaseReference.set(nominations);
             buildNominationsDisplay();
         };
         buildPopUpMessage();
@@ -32,25 +46,14 @@ const handleNominations = (function() {
         popUpMessageDiv.classList.remove('hidden');
     };
 
+    function handleCollapseNominationsButton() {
+        nominationSection.classList.toggle('hidden');
+    };
+
     function parseMovieYear(year) {
         const movieYearRegex = /([0-9]{4})/;
         const movieYear = movieYearRegex.exec(year);
         return movieYear[1];
-    };
-
-    function disableNominateButton(movie) {
-        let isDisabled = false;
-        if (!nominations.length) return isDisabled;
-        nominations.forEach( nomination => {
-            if (movie.Poster === 'N/A') {
-                isDisabled = isDisabled || movie.Title === nomination.Title && `${movie.Year}` === nomination.Year;
-                if (isDisabled) return isDisabled;
-            } else {
-                isDisabled = isDisabled || movie.Poster === nomination.Poster && movie.Title === nomination.Title && `${movie.Year}` === nomination.Year;
-                if (isDisabled) return isDisabled;
-            };
-        });
-        return isDisabled;
     };
 
     function createIndividualDisplay(movie) {
@@ -65,7 +68,7 @@ const handleNominations = (function() {
                 <div class="movieDetails">
                     <h3>${movie.Title}</h3>
                     <p>${movie.Year}</p>
-                    <button class="removeButton">Remove</button>
+                    <button class="removeButton" value="${movie.ID}">Remove</button>
                 </div> <!-- closing moviesDetails -->
             </div> <!-- closing movieContainer -->
         `;
@@ -73,20 +76,22 @@ const handleNominations = (function() {
 
     function createNominationsDisplay() {
         let nominationsDisplay = '';
-        if (nominations.length) {
+        if (!nominations || !nominations.length) {
+            nominationsDisplay = `<p>You haven't nominated a movie yet!</p>`;            
+        } else {
             nominationsDisplay = `
                 <div class="nominationsContainer">
                     ${
-                        nominations.map( (movie, index) => {
-                            return createIndividualDisplay(movie, index);
-                        }).reduce( (acc, cur) => {
-                            return acc + cur;
-                        })  
+                        nominations.length
+                        ?   nominations.map( (movie, index) => {
+                                return createIndividualDisplay(movie, index);
+                            }).reduce( (acc, cur) => {
+                                return acc + cur;
+                            })  
+                        :   ''
                     }
                 </div> <!-- closing nominationsContainer -->
             `;
-        } else {
-            nominationsDisplay = `<p>You haven't nominated a movie yet!</p>`;            
         };
         const template = document.createElement('template');
         template.innerHTML = nominationsDisplay;
@@ -94,23 +99,22 @@ const handleNominations = (function() {
     };
 
     function removeNomination(event) {
-        const [removedPoster] = event.target.parentNode.parentNode.children;
-        const [removedTitle, removedYear] = event.target.parentNode.children;
+        const [,, removedButton] = event.target.parentNode.children;
         let arrayIndex;
         nominations.forEach( (movie, index) => {
-            if (removedPoster.children[0].src === movie.Poster && removedTitle.innerText === movie.Title && removedYear.innerText === movie.Year) {
+            if (movie.ID === removedButton.value) {
                 arrayIndex = index;
                 return;
             };
         });
         if (arrayIndex !== undefined || arrayIndex !== null) {
             nominations.splice(arrayIndex, 1);
+            databaseReference.set(nominations);
             buildNominationsDisplay();
-            const movies = [...document.getElementsByClassName('movieContainer')];
+            const movies = [...searchResultsSection.getElementsByClassName('movieContainer')];
             movies.forEach( movie => {
-                const [poster] = movie.children;
-                const [title, year, button] = movie.children[1].children;
-                if (poster.children[0].src === removedPoster.children[0].src && title.innerText === removedTitle.innerText && year.innerText === `(${removedYear.innerText})`)  {
+                const [,, button] = movie.children[1].children;
+                if (button.value === removedButton.value)  {
                     button.removeAttribute('disabled');
                 };
             });
@@ -125,15 +129,33 @@ const handleNominations = (function() {
         removeButtons.forEach( button => {
             button.onclick = removeNomination;
         });
-        if (nominations.length === 0) {
+        if (nominations) {
             showNominations = !showNominations;
+        };
+        disableNominateButtons();
+    };
+
+    function disableNominateButtons() {
+        const movies = [...searchResultsSection.getElementsByClassName('movieContainer')];
+        if (nominations) {
+            movies.forEach( movie => {
+                const [,, button] = movie.children[1].children;
+                nominations.forEach( nomination => {
+                    const {ID} = nomination;
+                    if (ID === button.value)  {
+                        button.setAttribute('disabled', 'true');
+                    };
+                });
+            });
+        } else {
+            nominations = [];
         };
     };
     
     return {
-        disableNominateButton: disableNominateButton,
         getNominations: getNominations,
-        buildNominationsDisplay: buildNominationsDisplay
+        buildNominationsDisplay: buildNominationsDisplay,
+        disableNominateButtons: disableNominateButtons
     };
 }());
 
