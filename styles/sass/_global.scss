@@ -23,6 +23,14 @@ header {
     h1 {
         text-align: center;
     }
+    a {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        font-size: 5rem;
+        text-decoration: none;
+        color: whitesmoke;
+    }
 }
 
 main {
