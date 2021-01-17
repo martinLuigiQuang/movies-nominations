@@ -25,7 +25,7 @@ const apiCall = (function() {
      * @param {integer} apiPage The page parameter for the API call
      */
     function getApiUrl(movieTitle, movieYear, apiPage) {
-        let url = 'http://www.omdbapi.com/';
+        let url = 'https://www.omdbapi.com/';
         if (movieYear && movieTitle) {
             url = url + `?s=${movieTitle}&y=${movieYear[1]}&type=movie&page=${apiPage}&apikey=b1bd9324`;
         } else if (movieTitle) {
